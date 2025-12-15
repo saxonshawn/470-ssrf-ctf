@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Fetch Result</title>
+    <style>
+      body { font-family: system-ui, Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 16px; }
+      .box { border: 1px solid #ddd; padding: 16px; border-radius: 8px; }
+      pre { white-space: pre-wrap; word-break: break-word; background: #0b1020; color: #e6edf3; padding: 16px; border-radius: 8px; }
+      a { text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <h1>Fetch Result</h1>
+    <div class="box">
+      <p><strong>URL:</strong> {{ url }}</p>
+      <p><strong>Status:</strong> {{ status }}</p>
+    </div>
+
+    <h2>Body</h2>
+    <pre>{{ body }}</pre>
+
+    <p><a href="/">← Back</a></p>
+  </body>
+</html>
