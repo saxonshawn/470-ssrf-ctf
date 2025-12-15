@@ -59,19 +59,17 @@ def index():
 @app.post("/fetch")
 def fetch():
     url = request.form.get("url", "").strip()
-
     if not url:
         return render_template("result.html", url=url, status=400, body="Missing url")
 
-    # Remove whitespace that can break requests
     url = re.sub(r"\s+", "", url)
 
-    # Hosting-friendly: allow relative SSRF targets like /internal/flag
-    # This makes the intended solve easy on Render (no port guessing).
+    # Hosting-friendly SSRF: allow "/internal/flag"
+    # IMPORTANT: include the actual listening port (Render uses $PORT, not 80)
     if url.startswith("/"):
-        url = f"http://127.0.0.1{url}"
+        port = os.environ.get("PORT", "5000")
+        url = f"http://127.0.0.1:{port}{url}"
 
-    # Optional: prevent weird schemes from confusing requests (still SSRF)
     parsed = urlparse(url)
     if parsed.scheme not in ("http", "https"):
         return render_template("result.html", url=url, status=400, body="Only http/https allowed")
